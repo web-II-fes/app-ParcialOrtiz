@@ -1,0 +1,103 @@
+<form [formGroup]="itemForm" (ngSubmit)="submit()">
+    <div class="contenedor">
+      <h1>Ingrese su pedido</h1>
+      <div>
+        <mat-form-field class="example-full-width">
+          <mat-label>Nombre del Cliente: </mat-label>
+          <input
+            matInput
+            name="nombreCliente"
+            formControlName="nombreCliente"
+            placeholder="Nombre del Cliente"
+          />
+        </mat-form-field>
+      </div>
+      <div>
+        <mat-form-field class="example-full-width">
+          <mat-label>Direccion de Entrega: </mat-label>
+          <input
+            matInput
+            name="direccionEntrega"
+            formControlName="direccionEntrega"
+            placeholder="Direccion de Entrega"
+          />
+        </mat-form-field>
+      </div>
+      <div>
+        <mat-form-field class="example-full-width">
+          <mat-label>Pedido: </mat-label>
+          <input matInput name="pedido" formControlName="pedido" placeholder="Pedido" />
+        </mat-form-field>
+      </div>
+      <div>
+        <mat-form-field appearance="outline">
+            <mat-label>Fecha de Entrega</mat-label>
+            <input matInput [matDatepicker]="picker" formControlName="fechaEntrega">
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+      </div> 
+    <div>
+        <button mat-raised-button color="primary">Guardar</button>
+    </div>
+    <br>
+    <br>
+    <br>
+  
+      <div class="center">
+  
+        <table mat-table [dataSource]="pedidos" class="mat-elevation-z8">
+      
+          <!-- Nombre del Cliente Column -->
+          <ng-container matColumnDef="nombreCliente">
+            <th mat-header-cell *matHeaderCellDef class="thcenter"> Nombre del Cliente </th>
+            <td mat-cell *matCellDef="let element" style="width: 10%;" class="thcenter"> {{element.nombreCliente}} </td>
+          </ng-container>
+      
+          <!-- Direccion de Entrega Column -->
+          <ng-container matColumnDef="direccionEntrega">
+            <th mat-header-cell *matHeaderCellDef class="thcenter"> Direccion de Entrega </th>
+            <td mat-cell *matCellDef="let element" style="width: 10%;" class="thcenter"> {{element.direccionEntrega}} </td>
+          </ng-container>
+      
+          <!-- Pedido Column -->
+          <ng-container matColumnDef="pedido">
+            <th mat-header-cell *matHeaderCellDef class="thcenter"> Pedido </th>
+            <td mat-cell *matCellDef="let element" style="width: 10%;" class="thcenter"> {{element.pedido}} </td>
+          </ng-container>
+
+          <!-- Fecha de Entrega Column -->
+          <ng-container matColumnDef="fechaEntrega">
+            <th mat-header-cell *matHeaderCellDef class="thcenter"> Fecha de Entrega </th>
+            <td mat-cell *matCellDef="let element" style="width: 10%;" class="thcenter"> {{element.fechaEntrega | date: 'shortDate'}} </td>
+          </ng-container>
+      
+          <!-- Actualizar Column -->
+          <ng-container matColumnDef="actualizar">
+            <th mat-header-cell *matHeaderCellDef class="thcenter"> Actualizar Pedido </th>
+            <td mat-cell *matCellDef="let element" style="width: 10%;" class="thcenter">
+              <div style="height: 100%; width: 100%;">
+                <button type="button" class="buttontable" mat-raised-button color="primary"
+                  (click)="actualizarPedido(element)">Actualizar</button>
+              </div>
+            </td>
+          </ng-container>
+
+          <!-- Borrar Column -->
+          <ng-container matColumnDef="borrar">
+            <th mat-header-cell *matHeaderCellDef class="thcenter"> Borrar Pedido </th>
+            <td mat-cell *matCellDef="let element" style="width: 10%;" class="thcenter">
+              <div style="height: 100%; width: 100%;">
+                <button type="button" class="buttontable" mat-raised-button color="primary"
+                  (click)="borrarPedido(element)">Borrar</button>
+              </div>
+            </td>
+          </ng-container>
+      
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+      </div>
+
+    </div>
+  </form>
